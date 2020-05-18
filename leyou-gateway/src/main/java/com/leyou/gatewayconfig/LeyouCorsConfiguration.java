@@ -15,16 +15,19 @@ public class LeyouCorsConfiguration {
     @Bean
     public CorsFilter corsFilter() {
 
-        // 初始化cors配置对象
+        // 3、初始化cors配置对象
         CorsConfiguration corsConfig = new CorsConfiguration();
 
-        // 允许跨域的域名，如果要携带cookie,不能写*。 *代表所有域名都可以跨域访问
-        corsConfig.setAllowCredentials(true);  // 允许携带cookie
-        //corsConfig.addAllowedOrigin("http://manage.leyou.com");
-        //corsConfig.addAllowedOrigin("http://manage.leyou.com");
-        //corsConfig.addAllowedOrigin("http://www.leyou.com");
+
+        // 3.1、允许跨域的域名，如果要携带cookie,不能写*。 *代表所有域名都可以跨域访问
         corsConfig.addAllowedOrigin("*");
-        corsConfig.addAllowedMethod("*"); // 所有的请求方法: put get posr head
+        corsConfig.addAllowedOrigin("http://manage.leyou.com");
+        // 3.2、是否发送Cookie信息
+        corsConfig.setAllowCredentials(true);  // 允许携带cookie
+        // 3.3、允许的头信息
+        corsConfig.addAllowedHeader("*"); // 允许携带任何头信息
+        // 3.4、允许的请求方式
+        corsConfig.addAllowedMethod("*"); // 代表所有的请求方法 GET POST DEL
 //        corsConfig.addAllowedMethod("OPTIONS");
 //        corsConfig.addAllowedMethod("HEAD");
 //        corsConfig.addAllowedMethod("GET");
@@ -32,14 +35,14 @@ public class LeyouCorsConfiguration {
 //        corsConfig.addAllowedMethod("POST");
 //        corsConfig.addAllowedMethod("DELETE");
 //        corsConfig.addAllowedMethod("PATCH");
-        corsConfig.addAllowedHeader("*"); // 允许携带任何头信息
 
-        // 初始化cors配置源对象
+
+        // 2、初始化cors配置源对象
         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
-
+        // 添加映射路径，拦截一切请求
         configSource.registerCorsConfiguration("/**", corsConfig);
 
-        // 返回corsFilter实例,参数：cors配置源对象
+        // 1、返回corsFilter实例,参数：cors配置源对象
         return new CorsFilter(configSource);
     }
 }
