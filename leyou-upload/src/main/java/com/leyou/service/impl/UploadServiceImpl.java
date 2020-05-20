@@ -47,6 +47,7 @@ public class UploadServiceImpl implements UploadService {
             file.transferTo(new File(filePath + originalFilename));
 
             // 2.3、返回url,进行回显
+            System.out.println(url + originalFilename);
             return url + originalFilename;
         } catch (IOException e) {
             log.error("服务器内部错误: {}" + originalFilename);
