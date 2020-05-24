@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -14,8 +15,9 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper CategoryMapper;
 
     /**
-     *  根据父节点，查询子节点
-     * @param pid  父节点的id
+     * 根据父节点，查询子节点
+     *
+     * @param pid 父节点的id
      * @return
      */
     @Override
@@ -24,4 +26,16 @@ public class CategoryServiceImpl implements CategoryService {
         category.setParentId(pid);
         return this.CategoryMapper.select(category);
     }
+
+    /**
+     * 根据分类id获取分类名字
+     *
+     * @param ids
+     */
+    @Override
+    public List<String> queryCategoryNameByCid(List<Long> ids) {
+        List<Category> categories = this.CategoryMapper.selectByIdList(ids);
+        return categories.stream().map(category -> category.getName()).collect(Collectors.toList());
+    }
+
 }
