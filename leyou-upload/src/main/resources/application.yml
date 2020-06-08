@@ -16,3 +16,11 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
+fdfs:
+  so-timeout: 1501 # 超时时间
+  connect-timeout: 601 # 连接超时时间
+  thumb-image: # 缩略图
+    width: 80
+    height: 80
+  tracker-list: # tracker地址：你的虚拟机服务器地址+端口（默认是22122）
+    - 192.168.2.102:22122
